@@ -1,3 +1,3 @@
-import AnYiBpmnPreview from './src/AnYiTwitter.vue';
+import AnYiTwitter from './src/AnYiTwitter.vue';
 
-export default AnYiBpmnPreview;
+export default AnYiTwitter;

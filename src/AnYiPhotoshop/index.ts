@@ -1,3 +1,3 @@
-import AnYiBpmnDiffer from './src/AnYiBpmnDiffer.vue';
+import AnYiPhotoshop from './src/AnYiPhotoshop.vue';
 
-export default AnYiBpmnDiffer;
+export default AnYiPhotoshop;

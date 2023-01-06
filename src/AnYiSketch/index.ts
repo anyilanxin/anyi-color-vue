@@ -1,3 +1,3 @@
-import AnYiBpmnDesignerZeebe from './src/AnYiSketch.vue';
+import AnYiSketch from './src/AnYiSketch.vue';
 
-export default AnYiBpmnDesignerZeebe;
+export default AnYiSketch;

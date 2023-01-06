@@ -1,3 +1,3 @@
-import AnYiBpmnDesigner from './src/AnYiBpmnDesigner.vue';
+import AnYiChrome from './src/AnYiChrome.vue';
 
-export default AnYiBpmnDesigner;
+export default AnYiChrome;
