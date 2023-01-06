@@ -1,3 +1,39 @@
+<template>
+  <div
+    class="vc-twitter"
+    :class="{
+      'vc-twitter-hide-triangle ': triangle === 'hide',
+      'vc-twitter-top-left-triangle ': triangle === 'top-left',
+      'vc-twitter-top-right-triangle ': triangle === 'top-right',
+    }"
+    :style="{
+      width: typeof width === 'number' ? `${width}px` : width,
+    }"
+  >
+    <div class="vc-twitter-triangle-shadow" />
+    <div class="vc-twitter-triangle" />
+
+    <div class="vc-twitter-body">
+      <span
+        v-for="(color, index) in defaultColors"
+        :key="index"
+        class="vc-twitter-swatch"
+        :style="{
+          background: color,
+          boxShadow: `0 0 4px ${equal(color) ? color : 'transparent'}`,
+        }"
+        role="button"
+        tabindex="0"
+        @keyup.enter="handlerClick(color)"
+        @click="handlerClick(color)"
+      />
+      <div class="vc-twitter-hash"> # </div>
+      <EditableInput label="#" :value="hex" @change="inputChange" />
+      <div class="vc-twitter-clear" />
+    </div>
+  </div>
+</template>
+
 <script>
   import editableInput from '@/components/editable-input';
   import colorMixin from '@/mixin/color';
@@ -92,42 +128,6 @@
     },
   };
 </script>
-
-<template>
-  <div
-    class="vc-twitter"
-    :class="{
-      'vc-twitter-hide-triangle ': triangle === 'hide',
-      'vc-twitter-top-left-triangle ': triangle === 'top-left',
-      'vc-twitter-top-right-triangle ': triangle === 'top-right',
-    }"
-    :style="{
-      width: typeof width === 'number' ? `${width}px` : width,
-    }"
-  >
-    <div class="vc-twitter-triangle-shadow" />
-    <div class="vc-twitter-triangle" />
-
-    <div class="vc-twitter-body">
-      <span
-        v-for="(color, index) in defaultColors"
-        :key="index"
-        class="vc-twitter-swatch"
-        :style="{
-          background: color,
-          boxShadow: `0 0 4px ${equal(color) ? color : 'transparent'}`,
-        }"
-        role="button"
-        tabindex="0"
-        @keyup.enter="handlerClick(color)"
-        @click="handlerClick(color)"
-      />
-      <div class="vc-twitter-hash"> # </div>
-      <EditableInput label="#" :value="hex" @change="inputChange" />
-      <div class="vc-twitter-clear" />
-    </div>
-  </div>
-</template>
 
 <style lang="less">
   .vc-twitter {

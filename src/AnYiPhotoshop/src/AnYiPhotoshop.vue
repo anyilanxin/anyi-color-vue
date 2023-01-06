@@ -1,3 +1,78 @@
+<template>
+  <div
+    role="application"
+    aria-label="PhotoShop color picker"
+    class="vc-photoshop"
+    :class="[disableFields ? 'vc-photoshop__disable-fields' : '']"
+  >
+    <div role="heading" class="vc-ps-head">
+      {{ head }}
+    </div>
+    <div class="vc-ps-body">
+      <div class="vc-ps-saturation-wrap">
+        <Saturation :value="colors" @change="childChange" />
+      </div>
+      <div class="vc-ps-hue-wrap">
+        <Hue :value="colors" direction="vertical" @change="childChange">
+          <div class="vc-ps-hue-pointer">
+            <i class="vc-ps-hue-pointer--left" /><i class="vc-ps-hue-pointer--right" />
+          </div>
+        </Hue>
+      </div>
+      <div class="vc-ps-controls" :class="[disableFields ? 'vc-ps-controls__disable-fields' : '']">
+        <div class="vc-ps-previews">
+          <div class="vc-ps-previews__label">
+            {{ newLabel }}
+          </div>
+          <div class="vc-ps-previews__swatches">
+            <div
+              class="vc-ps-previews__pr-color"
+              :aria-label="`New color is ${colors.hex}`"
+              :style="{ background: colors.hex }"
+            />
+            <div
+              class="vc-ps-previews__pr-color"
+              :aria-label="`Current color is ${currentColor}`"
+              :style="{ background: currentColor }"
+              @click="clickCurrentColor"
+            />
+          </div>
+          <div class="vc-ps-previews__label">
+            {{ currentLabel }}
+          </div>
+        </div>
+        <div v-if="!disableFields" class="vc-ps-actions">
+          <div class="vc-ps-ac-btn" role="button" :aria-label="acceptLabel" @click="handleAccept">
+            {{ acceptLabel }}
+          </div>
+          <div class="vc-ps-ac-btn" role="button" :aria-label="cancelLabel" @click="handleCancel">
+            {{ cancelLabel }}
+          </div>
+
+          <div class="vc-ps-fields">
+            <!-- hsla -->
+            <EdIn label="h" desc="°" :value="hsv.h" @change="inputChange" />
+            <EdIn label="s" desc="%" :value="hsv.s" :max="100" @change="inputChange" />
+            <EdIn label="v" desc="%" :value="hsv.v" :max="100" @change="inputChange" />
+            <div class="vc-ps-fields__divider" />
+            <!-- rgba -->
+            <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
+            <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
+            <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
+            <div class="vc-ps-fields__divider" />
+            <!-- hex -->
+            <EdIn label="#" class="vc-ps-fields__hex" :value="hex" @change="inputChange" />
+          </div>
+
+          <div v-if="hasResetButton" class="vc-ps-ac-btn" aria-label="reset" @click="handleReset">
+            {{ resetLabel }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
   import colorMixin from '@/mixin/color';
   import editableInput from '@/components/editable-input';
@@ -116,81 +191,6 @@
     },
   };
 </script>
-
-<template>
-  <div
-    role="application"
-    aria-label="PhotoShop color picker"
-    class="vc-photoshop"
-    :class="[disableFields ? 'vc-photoshop__disable-fields' : '']"
-  >
-    <div role="heading" class="vc-ps-head">
-      {{ head }}
-    </div>
-    <div class="vc-ps-body">
-      <div class="vc-ps-saturation-wrap">
-        <Saturation :value="colors" @change="childChange" />
-      </div>
-      <div class="vc-ps-hue-wrap">
-        <Hue :value="colors" direction="vertical" @change="childChange">
-          <div class="vc-ps-hue-pointer">
-            <i class="vc-ps-hue-pointer--left" /><i class="vc-ps-hue-pointer--right" />
-          </div>
-        </Hue>
-      </div>
-      <div class="vc-ps-controls" :class="[disableFields ? 'vc-ps-controls__disable-fields' : '']">
-        <div class="vc-ps-previews">
-          <div class="vc-ps-previews__label">
-            {{ newLabel }}
-          </div>
-          <div class="vc-ps-previews__swatches">
-            <div
-              class="vc-ps-previews__pr-color"
-              :aria-label="`New color is ${colors.hex}`"
-              :style="{ background: colors.hex }"
-            />
-            <div
-              class="vc-ps-previews__pr-color"
-              :aria-label="`Current color is ${currentColor}`"
-              :style="{ background: currentColor }"
-              @click="clickCurrentColor"
-            />
-          </div>
-          <div class="vc-ps-previews__label">
-            {{ currentLabel }}
-          </div>
-        </div>
-        <div v-if="!disableFields" class="vc-ps-actions">
-          <div class="vc-ps-ac-btn" role="button" :aria-label="acceptLabel" @click="handleAccept">
-            {{ acceptLabel }}
-          </div>
-          <div class="vc-ps-ac-btn" role="button" :aria-label="cancelLabel" @click="handleCancel">
-            {{ cancelLabel }}
-          </div>
-
-          <div class="vc-ps-fields">
-            <!-- hsla -->
-            <EdIn label="h" desc="°" :value="hsv.h" @change="inputChange" />
-            <EdIn label="s" desc="%" :value="hsv.s" :max="100" @change="inputChange" />
-            <EdIn label="v" desc="%" :value="hsv.v" :max="100" @change="inputChange" />
-            <div class="vc-ps-fields__divider" />
-            <!-- rgba -->
-            <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
-            <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
-            <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
-            <div class="vc-ps-fields__divider" />
-            <!-- hex -->
-            <EdIn label="#" class="vc-ps-fields__hex" :value="hex" @change="inputChange" />
-          </div>
-
-          <div v-if="hasResetButton" class="vc-ps-ac-btn" aria-label="reset" @click="handleReset">
-            {{ resetLabel }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
 <style lang="less">
   .vc-photoshop {

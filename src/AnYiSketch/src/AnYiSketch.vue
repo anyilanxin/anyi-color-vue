@@ -1,3 +1,77 @@
+<template>
+  <div
+    role="application"
+    aria-label="Sketch color picker"
+    class="vc-sketch"
+    :class="[disableAlpha ? 'vc-sketch__disable-alpha' : '']"
+  >
+    <div class="vc-sketch-saturation-wrap">
+      <Saturation :value="colors" @change="childChange" />
+    </div>
+    <div class="vc-sketch-controls">
+      <div class="vc-sketch-sliders">
+        <div class="vc-sketch-hue-wrap">
+          <Hue :value="colors" @change="childChange" />
+        </div>
+        <div v-if="!disableAlpha" class="vc-sketch-alpha-wrap">
+          <Alpha :value="colors" @change="childChange" />
+        </div>
+      </div>
+      <div class="vc-sketch-color-wrap">
+        <div
+          :aria-label="`Current color is ${activeColor}`"
+          class="vc-sketch-active-color"
+          :style="{ background: activeColor }"
+        />
+        <Checkboard />
+      </div>
+    </div>
+    <div v-if="!disableFields" class="vc-sketch-field">
+      <!-- rgba -->
+      <div class="vc-sketch-field--double">
+        <EdIn label="hex" :value="hex" @change="inputChange" />
+      </div>
+      <div class="vc-sketch-field--single">
+        <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
+      </div>
+      <div class="vc-sketch-field--single">
+        <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
+      </div>
+      <div class="vc-sketch-field--single">
+        <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
+      </div>
+      <div v-if="!disableAlpha" class="vc-sketch-field--single">
+        <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
+      </div>
+    </div>
+    <div
+      class="vc-sketch-presets"
+      role="group"
+      aria-label="A color preset, pick one to set as current color"
+    >
+      <template v-for="c in presetColors">
+        <div
+          v-if="!isTransparent(c)"
+          :key="`!${c}`"
+          class="vc-sketch-presets-color"
+          :aria-label="`Color:${c}`"
+          :style="{ background: c }"
+          @click="handlePreset(c)"
+        />
+        <div
+          v-else
+          :key="c"
+          :aria-label="`Color:${c}`"
+          class="vc-sketch-presets-color"
+          @click="handlePreset(c)"
+        >
+          <Checkboard />
+        </div>
+      </template>
+    </div>
+  </div>
+</template>
+
 <script>
   import colorMixin from '@/mixin/color';
   import editableInput from '@/components/editable-input';
@@ -93,80 +167,6 @@
     },
   };
 </script>
-
-<template>
-  <div
-    role="application"
-    aria-label="Sketch color picker"
-    class="vc-sketch"
-    :class="[disableAlpha ? 'vc-sketch__disable-alpha' : '']"
-  >
-    <div class="vc-sketch-saturation-wrap">
-      <Saturation :value="colors" @change="childChange" />
-    </div>
-    <div class="vc-sketch-controls">
-      <div class="vc-sketch-sliders">
-        <div class="vc-sketch-hue-wrap">
-          <Hue :value="colors" @change="childChange" />
-        </div>
-        <div v-if="!disableAlpha" class="vc-sketch-alpha-wrap">
-          <Alpha :value="colors" @change="childChange" />
-        </div>
-      </div>
-      <div class="vc-sketch-color-wrap">
-        <div
-          :aria-label="`Current color is ${activeColor}`"
-          class="vc-sketch-active-color"
-          :style="{ background: activeColor }"
-        />
-        <Checkboard />
-      </div>
-    </div>
-    <div v-if="!disableFields" class="vc-sketch-field">
-      <!-- rgba -->
-      <div class="vc-sketch-field--double">
-        <EdIn label="hex" :value="hex" @change="inputChange" />
-      </div>
-      <div class="vc-sketch-field--single">
-        <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
-      </div>
-      <div class="vc-sketch-field--single">
-        <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
-      </div>
-      <div class="vc-sketch-field--single">
-        <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
-      </div>
-      <div v-if="!disableAlpha" class="vc-sketch-field--single">
-        <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
-      </div>
-    </div>
-    <div
-      class="vc-sketch-presets"
-      role="group"
-      aria-label="A color preset, pick one to set as current color"
-    >
-      <template v-for="c in presetColors">
-        <div
-          v-if="!isTransparent(c)"
-          :key="`!${c}`"
-          class="vc-sketch-presets-color"
-          :aria-label="`Color:${c}`"
-          :style="{ background: c }"
-          @click="handlePreset(c)"
-        />
-        <div
-          v-else
-          :key="c"
-          :aria-label="`Color:${c}`"
-          class="vc-sketch-presets-color"
-          @click="handlePreset(c)"
-        >
-          <Checkboard />
-        </div>
-      </template>
-    </div>
-  </div>
-</template>
 
 <style lang="less">
   .vc-sketch {

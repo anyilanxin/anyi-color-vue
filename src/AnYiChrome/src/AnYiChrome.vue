@@ -1,3 +1,101 @@
+<template>
+  <div
+    role="application"
+    aria-label="Chrome color picker"
+    class="vc-chrome"
+    :class="[disableAlpha ? 'vc-chrome__disable-alpha' : '']"
+  >
+    <div class="vc-chrome-saturation-wrap">
+      <Saturation :value="colors" @change="childChange" />
+    </div>
+    <div class="vc-chrome-body">
+      <div class="vc-chrome-controls">
+        <div class="vc-chrome-color-wrap">
+          <div
+            :aria-label="`current color is ${colors.hex}`"
+            class="vc-chrome-active-color"
+            :style="{ background: activeColor }"
+          />
+          <Checkboard v-if="!disableAlpha" />
+        </div>
+
+        <div class="vc-chrome-sliders">
+          <div class="vc-chrome-hue-wrap">
+            <Hue :value="colors" @change="childChange" />
+          </div>
+          <div v-if="!disableAlpha" class="vc-chrome-alpha-wrap">
+            <Alpha :value="colors" @change="childChange" />
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!disableFields" class="vc-chrome-fields-wrap">
+        <div v-show="fieldsIndex === 0" class="vc-chrome-fields">
+          <!-- hex -->
+          <div class="vc-chrome-field">
+            <EdIn v-if="!hasAlpha" label="hex" :value="colors.hex" @change="inputChange" />
+            <EdIn v-if="hasAlpha" label="hex" :value="colors.hex8" @change="inputChange" />
+          </div>
+        </div>
+        <div v-show="fieldsIndex === 1" class="vc-chrome-fields">
+          <!-- rgba -->
+          <div class="vc-chrome-field">
+            <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
+          </div>
+          <div class="vc-chrome-field">
+            <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
+          </div>
+          <div class="vc-chrome-field">
+            <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
+          </div>
+          <div v-if="!disableAlpha" class="vc-chrome-field">
+            <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
+          </div>
+        </div>
+        <div v-show="fieldsIndex === 2" class="vc-chrome-fields">
+          <!-- hsla -->
+          <div class="vc-chrome-field">
+            <EdIn label="h" :value="hsl.h" @change="inputChange" />
+          </div>
+          <div class="vc-chrome-field">
+            <EdIn label="s" :value="hsl.s" @change="inputChange" />
+          </div>
+          <div class="vc-chrome-field">
+            <EdIn label="l" :value="hsl.l" @change="inputChange" />
+          </div>
+          <div v-if="!disableAlpha" class="vc-chrome-field">
+            <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
+          </div>
+        </div>
+        <!-- btn -->
+        <div
+          class="vc-chrome-toggle-btn"
+          role="button"
+          aria-label="Change another color definition"
+          @click="toggleViews"
+        >
+          <div class="vc-chrome-toggle-icon">
+            <svg
+              style="width: 24px; height: 24px"
+              viewBox="0 0 24 24"
+              @mouseover="showHighlight"
+              @mouseenter="showHighlight"
+              @mouseout="hideHighlight"
+            >
+              <path
+                fill="#333"
+                d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"
+              />
+            </svg>
+          </div>
+          <div v-show="highlight" class="vc-chrome-toggle-icon-highlight" />
+        </div>
+        <!-- btn -->
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
   import colorMixin from '@/mixin/color';
   import editableInput from '@/components/editable-input';
@@ -98,104 +196,6 @@
     },
   };
 </script>
-
-<template>
-  <div
-    role="application"
-    aria-label="Chrome color picker"
-    class="vc-chrome"
-    :class="[disableAlpha ? 'vc-chrome__disable-alpha' : '']"
-  >
-    <div class="vc-chrome-saturation-wrap">
-      <Saturation :value="colors" @change="childChange" />
-    </div>
-    <div class="vc-chrome-body">
-      <div class="vc-chrome-controls">
-        <div class="vc-chrome-color-wrap">
-          <div
-            :aria-label="`current color is ${colors.hex}`"
-            class="vc-chrome-active-color"
-            :style="{ background: activeColor }"
-          />
-          <Checkboard v-if="!disableAlpha" />
-        </div>
-
-        <div class="vc-chrome-sliders">
-          <div class="vc-chrome-hue-wrap">
-            <Hue :value="colors" @change="childChange" />
-          </div>
-          <div v-if="!disableAlpha" class="vc-chrome-alpha-wrap">
-            <Alpha :value="colors" @change="childChange" />
-          </div>
-        </div>
-      </div>
-
-      <div v-if="!disableFields" class="vc-chrome-fields-wrap">
-        <div v-show="fieldsIndex === 0" class="vc-chrome-fields">
-          <!-- hex -->
-          <div class="vc-chrome-field">
-            <EdIn v-if="!hasAlpha" label="hex" :value="colors.hex" @change="inputChange" />
-            <EdIn v-if="hasAlpha" label="hex" :value="colors.hex8" @change="inputChange" />
-          </div>
-        </div>
-        <div v-show="fieldsIndex === 1" class="vc-chrome-fields">
-          <!-- rgba -->
-          <div class="vc-chrome-field">
-            <EdIn label="r" :value="colors.rgba.r" @change="inputChange" />
-          </div>
-          <div class="vc-chrome-field">
-            <EdIn label="g" :value="colors.rgba.g" @change="inputChange" />
-          </div>
-          <div class="vc-chrome-field">
-            <EdIn label="b" :value="colors.rgba.b" @change="inputChange" />
-          </div>
-          <div v-if="!disableAlpha" class="vc-chrome-field">
-            <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
-          </div>
-        </div>
-        <div v-show="fieldsIndex === 2" class="vc-chrome-fields">
-          <!-- hsla -->
-          <div class="vc-chrome-field">
-            <EdIn label="h" :value="hsl.h" @change="inputChange" />
-          </div>
-          <div class="vc-chrome-field">
-            <EdIn label="s" :value="hsl.s" @change="inputChange" />
-          </div>
-          <div class="vc-chrome-field">
-            <EdIn label="l" :value="hsl.l" @change="inputChange" />
-          </div>
-          <div v-if="!disableAlpha" class="vc-chrome-field">
-            <EdIn label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange" />
-          </div>
-        </div>
-        <!-- btn -->
-        <div
-          class="vc-chrome-toggle-btn"
-          role="button"
-          aria-label="Change another color definition"
-          @click="toggleViews"
-        >
-          <div class="vc-chrome-toggle-icon">
-            <svg
-              style="width: 24px; height: 24px"
-              viewBox="0 0 24 24"
-              @mouseover="showHighlight"
-              @mouseenter="showHighlight"
-              @mouseout="hideHighlight"
-            >
-              <path
-                fill="#333"
-                d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"
-              />
-            </svg>
-          </div>
-          <div v-show="highlight" class="vc-chrome-toggle-icon-highlight" />
-        </div>
-        <!-- btn -->
-      </div>
-    </div>
-  </div>
-</template>
 
 <style lang="less">
   .vc-chrome {
