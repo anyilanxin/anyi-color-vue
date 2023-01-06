@@ -1,0 +1,91 @@
+/**
+ * color definitions
+ */
+body[arco-theme='dark'] .djs-container {
+  --color-grey-225-10-15: hsl(225, 10%, 97%) !important;
+  --color-grey-225-10-35: hsl(225, 10%, 95%)!important;
+  --color-grey-225-10-55: hsl(225, 10%, 90%)!important;
+  --color-grey-225-10-75: hsl(225, 10%, 85%) !important;
+  --color-grey-225-10-80: hsl(225, 10%, 80%) !important;
+  --color-grey-225-10-85: hsl(225, 10%, 75%) !important;
+  --color-grey-225-10-90:  hsl(225, 10%, 55%)!important;
+  --color-grey-225-10-95: hsl(225, 10%, 35%) !important;
+  --color-grey-225-10-97: hsl(225, 10%, 15%) !important;
+
+  --color-blue-205-100-45: hsl(205, 100%, 45%) !important;
+  --color-blue-205-100-45-opacity-30: hsla(205, 100%, 45%, 30%) !important;
+  --color-blue-205-100-50: hsl(205, 100%, 50%) !important;
+  --color-blue-205-100-50-opacity-15: hsla(205, 100%, 50%, 15%) !important;
+  --color-blue-205-100-70: hsl(205, 100%, 75%) !important;
+  --color-blue-205-100-95: hsl(205, 100%, 95%) !important;
+
+  --color-green-150-86-44: hsl(150, 86%, 44%) !important;
+
+  --color-red-360-100-40: hsl(360, 100%, 40%) !important;
+  --color-red-360-100-45: hsl(360, 100%, 45%) !important;
+  --color-red-360-100-92: hsl(360, 100%, 92%) !important;
+  --color-red-360-100-97: hsl(360, 100%, 97%) !important;
+
+  --color-white: #eeeff7 !important;
+  --color-black: hsl(0, 0%, 0%) !important;
+  --color-black-opacity-10: hsla(0, 0%, 0%, 10%) !important;
+  --popup-background-color: var(--color-black) !important;
+
+
+  --token-simulation-green-base-44: #10D070 !important;
+  --token-simulation-grey-base-40: var(--color-neutral-10) !important;
+  --token-simulation-grey-darken-30: var(--color-neutral-10) !important;
+  --token-simulation-grey-lighten-56: #909090 !important;
+  --token-simulation-red-base-62: #FF3D3D !important;
+  --token-simulation-silver-base-97: #F8F8F8 !important;
+  --token-simulation-silver-darken-94: var(--color-black) !important;
+  --token-simulation-white: #FFFFFF !important;
+  --jjext-color-input-bg: #f4f5f5 !important;
+  --jjext-color-input-error-bg: #ffece8 !important;
+  --jjext-color-input-placeholder: #86909c !important;
+  --jjext-color-input-text: #4e5969 !important;
+  --jjext-color-input-icon: #f53f3f !important;
+}
+
+body[arco-theme='dark'] .djs-parent{
+   --popup-background-color: var(--color-black) !important;
+   --popup-shadow-color:var(--color-black) !important;
+   --popup-entry-hover-color: var(--color-border-2) !important;
+}
+.djs-popup-search input{
+  background-color: var(--color-bg-1) !important;
+  color:var(--color-neutral-10) !important;
+}
+.djs-popup-search-icon{
+  filter: invert(1) !important;
+  color: var(--color-neutral-10) !important;
+}
+/* .djs-popup .entry.selected {
+  background-color: var(--popup-entry-hover-color);
+} */
+.djs-context-pad .entry {
+  background-color: var(--color-bg-1) !important;
+  box-shadow: 0 0 2px 1px var(--color-bg-1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+.djs-context-pad .entry:hover {
+  color: rgb(var(--arcoblue-6)) !important;
+  background-color: var(--color-neutral-3) !important;
+}
+
+
+.djs-palette .entry:hover {
+  color: rgb(var(--arcoblue-6)) !important;
+}
+
+body,
+.djs-direct-editing-content,
+.djs-direct-editing-parent {
+  background-color: var(--color-bg-1) !important;
+  color: var(--color-neutral-10) !important;
+}
+
+.djs-popup-backdrop{
+  border: none !important;
+}

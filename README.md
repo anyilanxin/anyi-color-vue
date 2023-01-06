@@ -1,70 +1,79 @@
-# vue-color 
+AN YI PROCESS EE ANTVUE
+-----------------------
 
-> Modified based on [https://github.com/xiaokaike/vue-color](https://github.com/xiaokaike/vue-color) to support vue3.0
+http://localhost:3000/example/index.html
 
-🎨 Vue Color Pickers for Sketch, Photoshop, Chrome & more
 
-![image](https://user-images.githubusercontent.com/30174970/114983369-1e5aa380-9ec3-11eb-9e77-b122d19f1ebd.png)
-
-## [Demo](https://ckpack.github.io/vue-color)
-
-## Use case
-
-#### On demand
-
-We can import components we actually need, making the project smaller than otherwise.
-
-##### Import Directly
-
-```html
-<template>
-  <Sketch v-model="colors"/>
-</template>
-<script>
-import { Sketch } from '@ckpack/vue-color';
-
-export default {
-  components: {
-    Sketch,
-  },
-  setup() {
-    return {
-      colors: '#194D33A8' // etc: { h: 150, s: 0.66, v: 0.30 }, { r: 255, g: 0, b: 0 }, '#194d33'
-    }
-  }
-}
-</script>
+## 一、AnYiBpmnDesigner需要引入一下依赖
+```
+  @import 'anyi-process-ee-antvue/dist/style.css';
+  @import 'bpmn-js-color-picker/colors/color-picker.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+  @import 'bpmn-js/dist/assets/bpmn-js.css';
+  @import 'bpmn-js/dist/assets/diagram-js.css';
+  @import 'bpmn-js-properties-panel/dist/assets/properties-panel.css';
+  @import 'bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css';
+  @import 'diagram-js-minimap/assets/diagram-js-minimap.css';
+  @import 'bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css';
 ```
 
-##### Install on Demand Globally
-
-```js
-import { createApp } from 'vue';
-import App from '@/App.vue';
-import { Sketch, create } from '@ckpack/vue-color';
-
-const app = createApp(App);
-app.use(create({
-  components: [Sketch],
-}));
-app.mount('#app');
+## 二、AnYiBpmnDesignerZeebe需要引入一下依赖
+```
+  @import 'anyi-process-ee-antvue/dist/style.css';
+  @import 'bpmn-js-color-picker/colors/color-picker.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+  @import 'bpmn-js/dist/assets/bpmn-js.css';
+  @import 'bpmn-js/dist/assets/diagram-js.css';
+  @import 'bpmn-js-properties-panel/dist/assets/properties-panel.css';
+  @import 'bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css';
+  @import 'diagram-js-minimap/assets/diagram-js-minimap.css';
+  @import 'bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css';
 ```
 
-#### Fully import
-
-```js
-import { createApp } from 'vue';
-import App from '@/App.vue';
-import VueColor from '@ckpack/vue-color';
-
-const app = createApp(App);
-
-app.use(VueColor);
-app.mount('#app');
+## 三、AnYiBpmnDiffer需要引入一下依赖
+```
+  @import 'anyi-process-ee-antvue/dist/style.css';
+  @import 'bpmn-js/dist/assets/diagram-js.css';
+  @import 'bpmn-js/dist/assets/bpmn-js.css';
 ```
 
-## [CHANGELOG](/CHANGELOG.md)
+## 四、AnYiBpmnPreview需要引入一下依赖
+```
+  @import 'anyi-process-ee-antvue/dist/style.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+  @import 'bpmn-js/dist/assets/bpmn-js.css';
+  @import 'bpmn-js/dist/assets/diagram-js.css';
+  @import 'diagram-js-minimap/assets/diagram-js-minimap.css';
 
-## License
+```
 
-vue-color is licensed under [The MIT License](LICENSE).
+## 五、AnYiInstancePreview需要引入一下依赖
+```
+  @import 'anyi-process-ee-antvue/dist/style.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+  @import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+  @import 'bpmn-js/dist/assets/bpmn-js.css';
+  @import 'bpmn-js/dist/assets/diagram-js.css';
+  @import 'diagram-js-minimap/assets/diagram-js-minimap.css';
+```
+
+## 六、AnYiDmnDesigner需要引入一下依赖
+```
+
+```
+
+## 七、AnYiDmnPreview需要引入一下依赖
+```
+
+```
+
+## 七、全局全部引入
+```
+```
