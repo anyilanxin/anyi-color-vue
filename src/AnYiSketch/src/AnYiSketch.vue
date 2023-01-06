@@ -168,7 +168,7 @@
   </div>
 </template>
 
-<style>
+<style lang="less">
   .vc-sketch {
     position: relative;
     width: 200px;

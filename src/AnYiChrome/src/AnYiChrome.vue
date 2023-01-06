@@ -197,7 +197,7 @@
   </div>
 </template>
 
-<style>
+<style lang="less">
   .vc-chrome {
     background: #fff;
     border-radius: 2px;

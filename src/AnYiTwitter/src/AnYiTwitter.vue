@@ -129,7 +129,7 @@
   </div>
 </template>
 
-<style>
+<style lang="less">
   .vc-twitter {
     background: #fff;
     border: 0 solid rgba(0, 0, 0, 0.25);

@@ -192,7 +192,7 @@
   </div>
 </template>
 
-<style>
+<style lang="less">
   .vc-photoshop {
     background: #dcdcdc;
     border-radius: 4px;
